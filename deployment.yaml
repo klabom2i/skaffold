@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: node-app
+  name: flask-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: node-app
+      app: flask-app
   template:
     metadata:
       labels:
-        app: node-app
+        app: flask-app
     spec:
       containers:
         - name: node
-          image: registry.access.redhat.com/ubi9/nodejs-18
-          command: ["node", "-e", "const http=require('http');const url=require('url');http.createServer((req,res)=>{const p=url.parse(req.url).pathname;if(p=='/'){res.end('<h1>Node.js V2</h1>')}else if(p=='/about'){res.end('<p>About Node.js V2</p>')} else{res.statusCode=404;res.end('Not Found')}}).listen(8080)"]
+          image: registry.access.redhat.com/ubi9/python-39
+          command: ["python3", "-c", "from flask import Flask, jsonify; app=Flask(__name__);\\n@app.route('/')\\ndef home(): return '<h1>Hello Flask V1</h1>';\\napp.run(host='0.0.0.0', port=8080)"]
           ports:
             - containerPort: 8080
