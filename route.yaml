@@ -1,10 +1,10 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: flask-app
+  name: nginx-app
 spec:
   to:
     kind: Service
-    name: flask-app
+    name: nginx-app
   port:
     targetPort: 8080

@@ -1,32 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-app
+  name: nginx-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: flask-app
+      app: nginx-app
   template:
     metadata:
       labels:
-        app: flask-app
+        app: nginx-app
     spec:
       containers:
-      - name: flask
-        image: registry.access.redhat.com/ubi9/python-39
-        command: ["/bin/sh", "-c"]
-        args:
-          - |
-            pip install flask && \
-            python3 - << 'EOF'
-            from flask import Flask
-            app = Flask(__name__)
-            @app.route("/")
-            def home():
-                return "<h1>Hello Flask V2</h1>"
-            if __name__ == "__main__":
-                app.run(host="0.0.0.0", port=8080)
-            EOF
-        ports:
-        - containerPort: 8080
+        - name: node
+          image: nginxinc/nginx-unprivileged
+          # command: ["python3", "-c", "from flask import Flask, jsonify; app=Flask(__name__); \\n@app.route('/') \\ndef home(): return '<h1>Hello Flask V2</h1>'; \\n@app.route('/status') \\ndef status(): return jsonify(status='running', version='V2'); \\napp.run(host='0.0.0.0', port=8080)"]
+          ports:
+            - containerPort: 8080

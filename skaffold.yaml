@@ -1,7 +1,7 @@
 apiVersion: skaffold/v2beta29
 kind: Config
 metadata:
-  name: flask-app
+  name: nginx-app
 deploy:
   kubectl:
     manifests:
