@@ -14,7 +14,6 @@ spec:
     spec:
       containers:
         - name: node
-          image: nginxinc/nginx-unprivileged
-          # command: ["python3", "-c", "from flask import Flask, jsonify; app=Flask(__name__); \\n@app.route('/') \\ndef home(): return '<h1>Hello Flask V2</h1>'; \\n@app.route('/status') \\ndef status(): return jsonify(status='running', version='V2'); \\napp.run(host='0.0.0.0', port=8080)"]
+          image: public.ecr.aws/nginx/nginx-unprivileged:stable-alpine3.21-slim
           ports:
             - containerPort: 8080
